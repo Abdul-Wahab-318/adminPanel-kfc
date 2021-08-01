@@ -1,0 +1,11 @@
+.user-table-row .btn {
+    background-color: var(--bs-blue);
+    padding: 6px 12px;
+}
+th{
+    text-align: start;
+}
+
+.unset{
+    all: unset;
+}

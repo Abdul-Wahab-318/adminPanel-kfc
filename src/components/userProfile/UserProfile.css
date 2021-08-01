@@ -1,0 +1,62 @@
+.user-profile-parent{
+    min-height: 100vh;
+    background-color: rgb(238, 237, 237);
+}
+.user-profile-parent .hero-section{
+    width: 100%;
+    height: 200px;
+    padding: 30px;
+    background-color: var(--bs-gray-dark);
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    box-shadow: 0 0 20px 1px rgb(39, 39, 39);
+}
+
+.user-profile-parent h6{
+    color: white;
+    font-size: 30px;
+}
+
+.user-details{
+
+    padding:  40px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 30px;
+    background-color: rgb(238, 237, 237);
+}
+
+.user-details h6{
+    font-size: 20px;
+    color: white;
+    margin-bottom: 50px;
+    position: relative;
+}
+.user-details h6::after{
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(197, 197, 197);
+}
+.user-details p{
+    font-size: 18px;
+    color: white;
+
+}
+.user-details .personal-details {
+    grid-column: 1/2;
+    border-radius: 6px;
+    padding: 20px;
+    background-color: var(--bs-dark);
+}
+
+.user-details .order-details {
+    grid-column: 2/4;
+    border-radius: 6px;
+    padding: 20px;
+    background-color: var(--bs-dark);
+}

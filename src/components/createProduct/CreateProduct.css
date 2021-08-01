@@ -1,0 +1,38 @@
+.create-job{
+    min-height: 100vh;
+}
+.create-job .container{
+    max-width: 1100px;
+}
+
+.create-job .container .row   input , .create-job .container .row textarea {
+    padding: 10px 10px;
+    font-size: 17px;
+    background-color: #212529 !important;
+    color: white;
+    margin-bottom: 24px;
+}
+.row select {
+    padding: 10px 10px;
+    font-size: 17px;
+    background-color: #212529 !important;
+    color:  #8e8e8e;
+    margin-bottom: 24px;
+    background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png")  no-repeat 98.5% ;
+}
+.create-job .container .row  input:focus ,.row select:focus{
+    background-color: white !important;
+    color: black;
+}
+.create-job .container .row  textarea:focus{
+    background-color: white !important;
+    color: black;
+}
+
+.submit-job{
+    border: none;
+    padding: 20px 40px;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 5px;
+}
