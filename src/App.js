@@ -1,61 +1,45 @@
-
+import React from 'react';
 import './App.css';
-import Chart from './components/chart/Chart';
-import Header from './components/header/Header';
-import SideBar from './components/sideBar/SideBar';
-import Table from './components/table/Table';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
+  Route
 } from "react-router-dom";
+import {useSelector} from 'react-redux'
+import Header from './components/header/Header';
 import CreateJob from './components/createProduct/CreateProduct';
-import UserProfile from './components/userProfile/UserProfile';
-
+import UserProfile from './pages/userProfile/UserProfile'
+import AdminPanel from './pages/adminPanel/AdminPanel';
+import Login from './pages/login/Login';
 function App() {
+
+  let isLoggedIn = useSelector(state=> state.adminReducer.isLoggedIn)
+
   return (
 
       <Router>
       <div className="App">
         <div className="header-component">
-          <Header/>
         </div>
         <Switch>
           
           <Route exact path="/">
-            <div className="page-content">
-              <div className="container-fluid">
-                <div className="row">
-                  <SideBar/>
-                  <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                    <Chart />
-                    <Table/>
-                  </main>
-                </div>
-              </div>
-            </div>
+            {isLoggedIn? <AdminPanel/> : <Login/> }
+
           </Route>
 
           <Route exact path="/createProduct">
-            <CreateJob/>
+            {isLoggedIn? <><Header/><CreateJob/></> : <Login/>}
+
           </Route>
 
           <Route exact path="/user/profile/:slug">
+            <Header/>
             <UserProfile/>
           </Route>
 
-
         </Switch>
  
-
- 
-
- 
-
-    
       </div>
       </Router>
   )

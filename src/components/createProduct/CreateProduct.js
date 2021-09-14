@@ -1,77 +1,190 @@
-import React, { useState } from 'react'
-import './CreateProduct.css'
+import React, { useState, useEffect } from "react";
+import "./CreateProduct.css";
+import { useSelector } from "react-redux";
+import {useAlert} from 'react-alert'
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export default function CreateJob() {
 
+  const alert = useAlert()
+  let [newProduct, setNewProduct] = useState({
+    title: "",
+    image: "",
+    description: "",
+    price: "",
+    stock: "",
+    slug: "everyday-value",
+    category: "everyday-value",
+  });
 
-    let handleSubmit = async (newProduct) =>{
-        if(validateForm() == false) return false
-        await fetch("http://localhost:8000/kfc/create" , {
-            method: "POST",
-            headers:{
-                "Content-Type" : "application/json"
-            },
-            body: JSON.stringify(newProduct)
-        }).then(resp=> console.log("added successfully")).then(resp => alert("Job Created Successfully !"))
-        setNewProduct({title:"" , image:"" , description: "" , price:"" , stock:"" , slug: "make-it-a-meal" , category:"make-it-a-meal"})
-    }
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      image: "",
+      description: "",
+      price: "",
+      stock: "",
+      slug: "everyday-value",
+      category: "everyday-value",
+    },
 
-    let validateForm= ()=>{
-        /*if(Object.keys(newProduct).length == 7 ) return true
-        return false*/
-        for(let el of Object.keys(newProduct))
-        {
-            if(newProduct[el]===null) return false
-        }
-        return true
-    }
+    validationSchema: Yup.object({
+      title: Yup.string()
+        .max(30, "Must be 30 characters or less")
+        .min(6, "Must be minimum 6 characters")
+        .required("Title is required"),
 
-    let [newProduct , setNewProduct] = useState({title:"" , image:"" , description: "" , price:"" , stock:"" , slug: "make-it-a-meal" , category:"make-it-a-meal"})
-    console.log(newProduct)
-    return (
-        <div className="create-job bg-light py-5">
-            <div className="container">
-             <div className="row px-5">
-                 <div className="col-6">
-                 <input value={newProduct.title} type="text" className="form-control" placeholder="Product Title" spellCheck="false"  onChange={(e)=> setNewProduct({...newProduct , title : e.target.value})} />
-                 </div>
-                 <div className="col-6">
-                 <input value={newProduct.image} type="text" className="form-control  " placeholder="Image URL" onChange={(e)=> setNewProduct({...newProduct , image: e.target.value})}  />
-                 </div>
-                 <div className="col-12">
-                     <textarea value={newProduct.description} className="form-control " name="Description" id="" cols="20" rows="5" spellCheck="false"  placeholder="Description" onChange={(e)=> setNewProduct({...newProduct , description: e.target.value})}></textarea>
-                 </div>
-                 <div className="col-6">
-                     <input value={newProduct.price} type="text" className="form-control" placeholder="Price " onChange={(e)=> setNewProduct({...newProduct , price: e.target.value})}  />
-                 </div>
-                 <div className="col-6">
-                     <input value={newProduct.stock} type="text"  className="form-control" placeholder="Stock " onChange={(e)=> setNewProduct({...newProduct , stock: e.target.value})} />
-                 </div>
-                 <div className="col-6">
-                     <select  name="slug" id="slug" className="form-control" onChange={e=> setNewProduct({...newProduct , slug : e.target.value})}>
-                         <option value="make-it-a-meal">make-it-a-meal</option>
-                         <option value="everyday-value">everyday-value</option>
-                         <option value="signature-box">signature-box</option>
-                         <option value="sharing">sharing</option>
-                         <option value="promotions">promotions</option>
-                         <option value="snacks">snacks</option>
-                         <option value="midnight-deals">midnight-deals</option>
-                     </select>
-                 </div>
-                 <div className="col-6">
-                     <select  name="category" id="category" className="form-control" onChange= {e=> setNewProduct({...newProduct , category: e.target.value})}>
-                         <option value="make-it-a-meal">make-it-a-meal</option>
-                         <option value="everyday-value">everyday-value</option>
-                         <option value="signature-box">signature-box</option>
-                         <option value="sharing">sharing</option>
-                         <option value="promotions">promotions</option>
-                         <option value="snacks">snacks</option>
-                         <option value="midnight-deals">midnight-deals</option>
-                     </select>
-                 </div>
-             </div>
-             <button className="btn-primary mx-auto d-block submit-job" onClick={_=>handleSubmit(newProduct)}>Submit</button>
+      image: Yup.string().min(5, "Must be minimum 5 characters").required("Image URl is required"),
+
+      description: Yup.string()
+        .min(5, "Must be minimum 5 characters")
+        .required("Description is Required"),
+
+      price: Yup.number("Price must be a number")
+        .positive("Price has to be positive")
+        .required("Price is required"),
+
+      stock: Yup.number("Stock must be a number")
+        .positive("Stock has to be positive")
+        .required("Stock is required"),
+
+      slug: Yup.string()
+        .min(5, "Must be minimum 5 characters")
+        .required("Slug is Required"),
+
+      category: Yup.string()
+        .min(5, "Must be minimum 5 characters")
+        .required("category is Required"),
+    }),
+    onSubmit: async (values) => {
+        await fetch("http://localhost:8000/kfc/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials:'include',
+        body: JSON.stringify(newProduct),
+        })
+        .then( resp => {
+            if(!resp.ok) throw new Error("Action failed")
+        })
+        .catch( err => alert(err));
+        formik.handleReset()
+        alert.success("Product Created")
+    },
+  });
+
+
+
+  let isLoggedIn = useSelector((state) => state.adminReducer.isLoggedIn);
+  
+  useEffect(() => {
+    if (!isLoggedIn) window.location.href = "https://localhost:3000/kfc/";
+  }, []);
+
+  return (
+    <div className="create-job bg-light ">
+      <div className="container">
+        <form onSubmit={formik.handleSubmit}>
+          <h1 className="text-primary text-center mb-4">
+            Create A New Product
+          </h1>
+          <div className="row px-5">
+            <div className="col-6">
+              <h5 className="text-primary">Product Title</h5>
+              <input
+                {...formik.getFieldProps('title')}
+                type="text"
+                className="form-control"
+                placeholder="Product Title"
+                spellCheck="false"
+              />
+                {formik.touched.title && formik.errors.title ? ( <div className="prod-error">{formik.errors.title}</div>) : null}
             </div>
-        </div>
-    )
+            <div className="col-6">
+              <h5 className="text-primary">Image URL</h5>
+              <input
+                {...formik.getFieldProps('image')}
+                type="text"
+                className="form-control"
+                placeholder="Image URL"
+                spellCheck="false"
+              />
+              {formik.touched.image && formik.errors.image ? ( <div className="prod-error">{formik.errors.image}</div>) : null}
+            </div>
+            <div className="col-12">
+              <h5 className="text-primary ">Description</h5>
+              <textarea
+                {...formik.getFieldProps('description')}
+                rows="5"
+                cols="20"
+                type="text"
+                className="form-control"
+                placeholder="description"
+                spellCheck="false"
+              ></textarea>
+              {formik.touched.description && formik.errors.description ? ( <div className="prod-error">{formik.errors.description}</div>) : null}
+            </div>
+            <div className="col-6">
+              <h5 className="text-primary ">Price</h5>
+              <input
+                {...formik.getFieldProps('price')}
+                type="text"
+                className="form-control"
+                placeholder="Price"
+                spellCheck="false"
+              />
+              {formik.touched.price && formik.errors.price ? ( <div className="prod-error">{formik.errors.price}</div>) : null}
+            </div>
+            <div className="col-6">
+              <h5 className="text-primary ">Stock</h5>
+              <input
+                {...formik.getFieldProps('stock')}
+                type="text"
+                className="form-control"
+                placeholder="Stock"
+                spellCheck="false"
+              />
+              {formik.touched.stock && formik.errors.stock ? ( <div className="prod-error">{formik.errors.stock}</div>) : null}
+            </div>
+            <div className="col-6">
+              <h5 className="text-primary ">Slug</h5>
+              <select
+                {...formik.getFieldProps('slug')}
+                id="slug"
+                className="form-control">
+
+                <option value="everyday-value">everyday-value</option>
+                <option value="make-it-a-meal">make-it-a-meal</option>
+                <option value="signature-box">signature-box</option>
+                <option value="sharing">sharing</option>
+                <option value="promotions">promotions</option>
+                <option value="snacks">snacks</option>
+                <option value="midnight-deals">midnight-deals</option>
+                <option value="featured">featured</option>
+              </select>
+              {formik.touched.slug && formik.errors.slug ? ( <div className="prod-error">{formik.errors.slug}</div>) : null}
+            </div>
+            <div className="col-6">
+              <h5 className="text-primary ">Category</h5>
+              <select
+                {...formik.getFieldProps('category')}
+                id="category"
+                className="form-control">
+                <option value="everyday-value">everyday-value</option>
+                <option value="make-it-a-meal">make-it-a-meal</option>
+                <option value="signature-box">signature-box</option>
+                <option value="sharing">sharing</option>
+                <option value="promotions">promotions</option>
+                <option value="snacks">snacks</option>
+                <option value="midnight-deals">midnight-deals</option>
+                <option value="featured">featured</option>
+              </select>
+              {formik.touched.category && formik.errors.category ? ( <div className="prod-error">{formik.errors.category}</div>) : null}
+            </div>
+          </div>
+          <button className="btn-primary mx-auto d-block submit-job mt-4" type="submit"> Submit</button>
+        </form>
+      </div>
+    </div>
+  );
 }

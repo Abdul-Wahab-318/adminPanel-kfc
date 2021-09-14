@@ -1,63 +1,29 @@
 import React , {useState , useEffect} from 'react'
 import './Table.css'
-import TableRow from '../tableRow/TableRow';
-import UserTableRow from '../userTableRow/UserTableRow';
+import OrderTableRow from '../orderTableRow/OrderTableRow';
+import ProductTable from '../productTable/ProductTable';
+import UserTable from '../userTable/UserTable';
+import OrderTable from '../orderTable/OrderTable';
 
 export default function Table() {
 
-    let serverUrl= "http://localhost:8000"
-    //GET ALL PRODUCTS FROM DB AND SET THEM
-    let [products , setProducts] = useState([])
-    let getProducts = async ()=>{
-      await fetch(`${serverUrl}/kfc/products`).then(resp=> resp.json()).then((data)=>{setProducts(data.allProducts) ; console.log("success")})
-    }
-    useEffect(()=>{
-      getProducts()
-      getUsers()
-    },[])
-
-    //GET ALL USERS FROM DB
-    let [users, setUsers] = useState([])
-    let getUsers = async ()=>{
-      await fetch(`${serverUrl}/kfc/users`).then(data=> data.json()).then(data=> setUsers(data.users)).then(e=> console.log("users loaded"))
-    }
+    console.log("rendered table component")
 
     return (
-        <div className="table-parent">
-            <h2>Products</h2>
-            <div className="table-responsive">
-            <table className="table table-striped table-sm">
-                <thead>
-                <tr>
-                <th>#id</th>
-                <th>title</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Stock</th>
-                </tr>
-                </thead>
-            <tbody>
-              {products.map((el,index)=> <TableRow key={index} product={el} getProducts={getProducts}/>)}
+        <main className="table-parent">
 
-          </tbody>
-        </table>
-        <h2 className="mt-5">User Accounts</h2>
-        <table className="table table-striped table-sm">
-                <thead>
-                <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Mobile No.</th>
-                <th>Action</th>
-                </tr>
-                </thead>
-            <tbody>
-              {users.map((el,index)=> <UserTableRow key={index} user={el} getUsers={getUsers}/>)}
+          <section className="products-table">
+            <ProductTable/>
+          </section>
 
-          </tbody>
-        </table>
-      </div>
-        </div>
+          <section className="orders-table">
+            <OrderTable/>
+          </section>
+
+          <section className="users-table">
+            <UserTable/>
+          </section>  
+          
+        </main>
     )
 }
