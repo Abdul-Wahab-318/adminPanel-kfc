@@ -22,6 +22,7 @@ export default function ProductTable() {
               <h2 id="products">Products</h2>
               <select className="filter-box" name="product-filter" id="product-filter" value={productFilterKeyword} onChange={(e)=> setProductFilterKeyword(e.target.value)}>
                 <option value="all">All</option>
+                <option value="featured">featured</option>
                 <option value="everyday-value">Everyday-value</option>
                 <option value="make-it-a-meal">Make-it-a-meal</option>
                 <option value="signature-box">Signature-box</option>

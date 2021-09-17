@@ -8,6 +8,8 @@ import * as Yup from "yup";
 export default function CreateJob() {
 
   const alert = useAlert()
+  const [avatarPreview , setAvatarPreview ] = useState("")
+
   let [newProduct, setNewProduct] = useState({
     title: "",
     image: "",
@@ -35,7 +37,7 @@ export default function CreateJob() {
         .min(6, "Must be minimum 6 characters")
         .required("Title is required"),
 
-      image: Yup.string().min(5, "Must be minimum 5 characters").required("Image URl is required"),
+      image: Yup.string(),
 
       description: Yup.string()
         .min(5, "Must be minimum 5 characters")
@@ -62,7 +64,7 @@ export default function CreateJob() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials:'include',
-        body: JSON.stringify(newProduct),
+        body: JSON.stringify(values),
         })
         .then( resp => {
             if(!resp.ok) throw new Error("Action failed")
@@ -73,7 +75,27 @@ export default function CreateJob() {
     },
   });
 
+  let handleImageUpload = (image)=>{
+    console.log(image.target.files[0])
 
+    /*if(image.target.files[0].size > 2097152 ) //for 2MB 
+    {
+      formik.setFieldError("image" , "image size should not exceed 2MB")
+      return
+    }*/
+
+    let reader = new FileReader()
+
+    reader.readAsDataURL(image.target.files[0])
+
+    reader.onload = () =>{
+      if(reader.readyState === 2)
+      console.log(reader.result)
+      setAvatarPreview(reader.result)
+      formik.setFieldValue("image", reader.result)
+    }
+    
+  }
 
   let isLoggedIn = useSelector((state) => state.adminReducer.isLoggedIn);
   
@@ -101,10 +123,13 @@ export default function CreateJob() {
                 {formik.touched.title && formik.errors.title ? ( <div className="prod-error">{formik.errors.title}</div>) : null}
             </div>
             <div className="col-6">
-              <h5 className="text-primary">Image URL</h5>
+              <h5 className="text-primary">Image</h5>
               <input
-                {...formik.getFieldProps('image')}
-                type="text"
+               
+                name = "image"
+                onBlur = {formik.handleBlur}
+                onChange = {(e)=> handleImageUpload(e)}
+                type="file"
                 className="form-control"
                 placeholder="Image URL"
                 spellCheck="false"
