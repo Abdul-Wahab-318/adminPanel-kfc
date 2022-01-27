@@ -12,7 +12,7 @@ export default function ProductTableRow(props) {
 
     
     let handleDelete = async (id)=>{
-        await fetch(`http://localhost:8000/kfc/delete/${id}`,
+        await fetch(`https://kfc-backend.herokuapp.com/kfc/delete/${id}`,
         {method: "DELETE" , credentials:'include'  } )
         .then(resp=>resp.json)
         props.getProducts()

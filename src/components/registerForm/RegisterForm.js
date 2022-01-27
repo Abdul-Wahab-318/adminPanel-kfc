@@ -16,7 +16,7 @@ export default function RegisterForm(props) {
     }
     
     let handleRegister = async ()=>{
-        await fetch("http://localhost:8000/kfc/admin/register" ,
+        await fetch("https://kfc-backend.herokuapp.com/kfc/admin/register" ,
         {method:'POST' ,
         headers:{'Content-type' : 'application/json'}
         ,credentials: 'include'

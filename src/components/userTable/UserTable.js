@@ -3,7 +3,7 @@ import UserTableRow from '../userTableRow/UserTableRow'
 
 export default function UserTable() {
 
-    let serverUrl= "http://localhost:8000"
+    let serverUrl= "https://kfc-backend.herokuapp.com"
     //GET ALL USERS FROM DB
     let [users, setUsers] = useState([])
     let getUsers = async ()=>{
@@ -12,6 +12,7 @@ export default function UserTable() {
         .then(data=> setUsers(data.users))
 
     }
+    console.log(users)
     useEffect(() => {
         getUsers()
     }, [])
@@ -24,7 +25,9 @@ export default function UserTable() {
                 <span>Email</span>
                 <span>Contact No.</span>
               </div>
-              {users.map((el,index)=> <UserTableRow key={index} user={el} getUsers={getUsers}/>)}
+              {users.length == 0 ?
+                <div className='text-center my-5 py-5 fs-3'>No User Accounts</div> : 
+                users.map((el,index)=> <UserTableRow key={index} user={el} getUsers={getUsers}/>)}
             </div>
         </div>
     )

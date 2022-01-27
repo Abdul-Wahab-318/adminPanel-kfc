@@ -3,7 +3,7 @@ import OrderTableRow from '../orderTableRow/OrderTableRow'
 
 export default function OrderTable() {
 
-    let serverUrl= "http://localhost:8000"
+    let serverUrl= "https://kfc-backend.herokuapp.com"
   
     //GET ALL ACTIVE ORDERS FROM DB
     let [orders , setOrders]  = useState([])

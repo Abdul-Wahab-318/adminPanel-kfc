@@ -1,10 +1,10 @@
 import React , {useState} from 'react'
 import './Chart.css'
 import {Line , Bar} from 'react-chartjs-2'
-import { getByDisplayValue } from '@testing-library/dom'
+import { Chart ,CategoryScale  } from 'chart.js';
 
 
-export default function Chart() {
+export default function ChartComponent() {
     
     
     let [chartData , setChartData] = useState({

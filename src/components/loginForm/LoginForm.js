@@ -12,7 +12,7 @@ export default function LoginForm(props) {
     }
 
     let handleLogin = async ()=>{
-        await fetch("http://localhost:8000/kfc/admin/login" ,
+        await fetch("https://kfc-backend.herokuapp.com/kfc/admin/login" ,
         {   method:'POST' ,
             headers:{'Content-type':'application/json'} ,
             credentials: 'include',

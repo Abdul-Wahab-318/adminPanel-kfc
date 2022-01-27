@@ -2,7 +2,7 @@ import React , {useEffect, useState} from 'react'
 import ProductTableRow from '../productTableRow/ProductTableRow'
 export default function ProductTable() {
 
-    let serverUrl= "http://localhost:8000"
+    let serverUrl= "https://kfc-backend.herokuapp.com"
     //GET ALL PRODUCTS FROM DB AND SET THEM
     let [products , setProducts] = useState([])
     let [productFilterKeyword , setProductFilterKeyword] = useState("all")

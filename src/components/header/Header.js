@@ -7,7 +7,7 @@ export default function Header() {
 
     let dispatch = useDispatch()
     let handleLogout = async ()=>{
-        await fetch("http://localhost:8000/kfc/admin/logout" ,
+        await fetch("https://kfc-backend.herokuapp.com/kfc/admin/logout" ,
         {method:'POST' ,
         headers:{'Content-type':'application/json'} ,
         credentials: 'include',

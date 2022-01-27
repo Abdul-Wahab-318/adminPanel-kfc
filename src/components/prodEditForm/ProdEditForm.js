@@ -12,7 +12,7 @@ export default function ProdEditForm(props) {
 
 
     let handleEdit = async (id) =>{
-        await fetch(`http://localhost:8000/kfc/update/${id}`,
+        await fetch(`https://kfc-backend.herokuapp.com/kfc/update/${id}`,
         {method: "PUT" ,
         headers: {"Content-Type" : "application/json"} ,
         credentials:'include',
