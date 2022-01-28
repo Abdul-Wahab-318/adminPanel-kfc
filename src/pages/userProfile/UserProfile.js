@@ -10,11 +10,11 @@ export default function UserProfile() {
 
     let getUser = async ()=>{
 
-        await fetch(`http://localhost:8000/kfc/users/userID/${slug}`).then(resp=> resp.json()).then(data=> setUser(data.user) , getActiveOrders())
+        await fetch(`https://kfc-backend.herokuapp.com/kfc/users/userID/${slug}`).then(resp=> resp.json()).then(data=> setUser(data.user) , getActiveOrders())
     }
 
     let getActiveOrders = async ()=>{
-        await fetch(`http://localhost:8000/kfc/order/user/activeOrders/${slug}`)
+        await fetch(`https://kfc-backend.herokuapp.com/kfc/order/user/activeOrders/${slug}`)
         .then(res=> res.json()) 
         .then(data=> setActiveOrders(data.orders))
     }

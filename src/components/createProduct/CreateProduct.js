@@ -60,7 +60,7 @@ export default function CreateJob() {
         .required("category is Required"),
     }),
     onSubmit: async (values) => {
-        await fetch("http://localhost:8000/kfc/create", {
+        await fetch("https://kfc-backend.herokuapp.com/kfc/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials:'include',
@@ -100,7 +100,7 @@ export default function CreateJob() {
   let isLoggedIn = useSelector((state) => state.adminReducer.isLoggedIn);
   
   useEffect(() => {
-    if (!isLoggedIn) window.location.href = "https://localhost:3000/kfc/";
+    if (!isLoggedIn) window.location.href = "https://kfc-admin.netlify.app";
   }, []);
 
   return (
