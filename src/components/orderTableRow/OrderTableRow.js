@@ -7,7 +7,9 @@ export default function OrderTableRow(props) {
     let {location , items,bill , _id} = props.order
 
     let completeOrder = async ()=>{
-        await fetch(`http://localhost:8000/kfc/order/cancel/${_id}` , {method: 'DELETE'}).then(res=> res.json()).then(data=> console.log(data))
+        await fetch(`https://kfc-backend.herokuapp.com/kfc/order/cancel/${_id}` 
+        , {method: 'DELETE' , credentials : 'include'})
+        .then(res=> res.json()).then(data=> console.log(data))
         props.getOrders()
     }
 

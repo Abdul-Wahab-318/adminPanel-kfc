@@ -10,16 +10,6 @@ export default function CreateJob() {
   const alert = useAlert()
   const [avatarPreview , setAvatarPreview ] = useState("")
 
-  let [newProduct, setNewProduct] = useState({
-    title: "",
-    image: "",
-    description: "",
-    price: "",
-    stock: "",
-    slug: "everyday-value",
-    category: "everyday-value",
-  });
-
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -59,6 +49,7 @@ export default function CreateJob() {
         .min(5, "Must be minimum 5 characters")
         .required("category is Required"),
     }),
+
     onSubmit: async (values) => {
         await fetch("https://kfc-backend.herokuapp.com/kfc/create", {
         method: "POST",
@@ -106,7 +97,7 @@ export default function CreateJob() {
   return (
     <div className="create-job bg-light ">
       <div className="container">
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={ formik.handleSubmit}>
           <h1 className="text-primary text-center mb-4">
             Create A New Product
           </h1>
