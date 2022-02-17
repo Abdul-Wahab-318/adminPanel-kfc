@@ -121,3 +121,13 @@ body {
   background-color: var(--bs-dark);
   width: 4px;
 }
+
+@media ( max-width : 576px ) {
+    .main-content {
+      margin-top: 20px;
+    }
+    .navbar {
+      justify-content: flex-start !important;
+      flex-direction: column;
+    }
+}

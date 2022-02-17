@@ -34,7 +34,7 @@ export default function ProductTable() {
             </div>
 
             <div className="table-inner table-inner-prod">
-              <div className="table-inner-headings table-inner-prod-headings">
+              <div className="table-inner-headings table-inner-prod-headings d-none d-sm-grid">
                 <span>Product Name</span>
                 <span>Price</span>
                 <span>Category</span>

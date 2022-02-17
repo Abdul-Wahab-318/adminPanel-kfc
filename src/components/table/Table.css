@@ -96,3 +96,43 @@
 .order-table-inner button{
     padding: 10px 8px;
 }
+
+@media ( max-width : 576px ) { 
+
+    :root {
+        --product-grid: 1fr 3fr  ;
+    }
+    .table-parent h2::before{
+        border-radius: 5px;
+        position: absolute;
+        content: '';
+        left: 0;
+        top: 0;
+        width: 55%;
+        height: 100%;
+        background-color: var(--bs-blue) ;
+        z-index: -100;
+    }
+    .table-parent h2::after{
+        display: none;
+    }
+    .table-row{
+        grid-template-columns: 1fr 3fr;
+    }
+    .table-inner-prod .table-inner-prod-headings {
+        grid-template-columns: 1fr 1fr ;
+    }
+    .table-inner-prod .table-inner-prod-headings span:nth-child()
+
+    .table-inner-prod .prod-table-row {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    .table-inner-headings{
+        grid-template-columns: 1fr 1fr;
+    }
+    .user-table-component {
+        display: none;
+    }
+    
+}
+

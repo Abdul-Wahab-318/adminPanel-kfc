@@ -26,7 +26,7 @@ export default function Header() {
                 <button className="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <input className="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"/>
+                <input className="form-control form-control-dark w-100 d-none d-md-block" type="text" placeholder="Search" aria-label="Search"/>
                 <button className="btn btn-danger align-self-stretch " onClick={()=> handleLogout()}>Logout</button>
                 <ul className="navbar-nav px-3">
                     <li className="nav-item text-nowrap">

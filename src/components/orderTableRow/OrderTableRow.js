@@ -15,13 +15,16 @@ export default function OrderTableRow(props) {
 
     return (
         <div className="table-row">
+            <p className="d-block d-sm-none">Location :</p>
            <p>{`${location.city} , ${location.area}`}</p>
+           <p className="d-block d-sm-none">Items :</p>
            <ul>
             {items.map((el,ind)=> <li className="fs-6" key={ind}>{el.title } x { el.quantity}</li>)}
            </ul>
+           <p className="d-block d-sm-none">Bill :</p>
             <p className="fw-bold">PKR. {bill}</p>
-            <button className="bg-success text-white border-0 rounded fw-bold">Dispatch</button>
-            <button className="bg-danger text-white border-0 rounded fw-bold" onClick={()=> completeOrder()}>Cancel</button>
+            <button className="bg-danger text-white border-0 rounded fw-bold">Cancel</button>
+            <button className="bg-success text-white border-0 rounded fw-bold" onClick={()=> completeOrder()}>Dispatch</button>
         </div>
     )
 }

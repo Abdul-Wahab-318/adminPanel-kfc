@@ -21,7 +21,7 @@ export default function OrderTable() {
         <div className="order-table-component">
             <h2 id="orders">Active Orders</h2>
             <section className="table-inner order-table-inner">
-              <div className="table-inner-headings">
+              <div className="table-inner-headings d-none d-sm-grid ">
                 <span>Order Location</span>
                 <span>Order Details</span>
                 <span>Total Bill</span>
